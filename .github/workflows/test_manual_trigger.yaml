@@ -35,5 +35,7 @@ jobs:
 
       - name: Print env
         shell: bash
+        env:
+          ENVIRONMENT: ${{ github.event.inputs.account_name || 'marcom_uat' }}
         run: |
-          echo ${{ github.event.inputs.account_name }}
+          echo $ENVIRONMENT
