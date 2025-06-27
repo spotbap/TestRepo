@@ -1,0 +1,39 @@
+name: CI/CD - UAT - React Deploy to S3
+
+on:
+  workflow_dispatch:
+    inputs:
+      account_name:
+        description: Choose the environment to push into
+        required: true
+        default: marcom_uat
+        type: choice
+        options:
+          - marcom_uat
+          - marcom_prod
+  push:
+    branches:
+      - main
+    tags:
+      - 'v**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        include:
+          # specify for each micro account you want to deploy with
+          # the role arn allowing s3 access as well as the bucket name for this account
+          - account_name: marcom_uat
+            domain_name: uat.ccs-savings.com
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Print env
+        shell: bash
+        run: |
+          echo ${{ github.envent.inputs.account_name }}
