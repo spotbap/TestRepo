@@ -36,4 +36,4 @@ jobs:
       - name: Print env
         shell: bash
         run: |
-          echo ${{ github.envent.inputs.account_name }}
+          echo ${{ github.event.inputs.account_name }}
